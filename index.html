@@ -11,13 +11,13 @@
 
 <body class="site">
   <div class="site__wrapper">
-    <!-- Banner/Header: Displays the site logo -->
+    <!-- Banner where displays the page logo -->
     <header class="banner site__section">
       <img alt="Magical Mexico Logo" class="banner__logo" src="./images/logo-mexico.jpeg" />
     </header>
 
     <main class="main-content">
-      <!-- Traveler Profile: Shows user info and profile actions -->
+      <!-- Content where shows user info and profile actions -->
       <section class="traveler-profile site__section">
         <img class="traveler-profile__image" src="./images/pic0.jfif" alt="Avatar" />
         <div class="traveler-profile__details">
@@ -28,18 +28,16 @@
         <button aria-label="Add new place" class="traveler-profile__add-place-btn" type="button"></button>
       </section>
 
-      <!-- Places Gallery: List of places (cards) added by the user -->
+      <!-- Cards Gallery added by the user -->
       <section class="places-gallery site__section">
         <ul class="places-gallery__list"></ul>
       </section>
     </main>
-
-    <!-- Footer: Site copyright -->
     <footer class="footer site__section">
       <p class="footer__text">© Magical Mexico</p>
     </footer>
 
-    <!-- Modal: Edit Profile Form -->
+    <!-- Edit Profile form where the user can change their name and bio in a modal-->
     <div class="modal" id="modal-edit-profile">
       <div class="modal__content">
         <button aria-label="Close modal" class="modal__close-btn" type="button"></button>
@@ -60,7 +58,7 @@
       </div>
     </div>
 
-    <!-- Modal: Add New Place Form -->
+    <!-- Form where the user adds a new element with title and a image URL -->
     <div class="modal" id="modal-new-place">
       <div class="modal__content">
         <button aria-label="Close modal" class="modal__close-btn" type="button"></button>
@@ -81,7 +79,7 @@
       </div>
     </div>
 
-    <!-- Modal: Image View (enlarged place image and caption) -->
+    <!-- Modal who displays a larger version of a card image-->
     <div class="modal" id="modal-image-view">
       <div class="modal__content modal__content_content_image">
         <button aria-label="Close modal" class="modal__close-btn" type="button"></button>
@@ -91,7 +89,6 @@
     </div>
   </div>
 
-  <!-- Template: Place Card (used for rendering each place in the gallery) -->
   <template id="template-place-card">
     <li class="place-card">
       <img class="place-card__image" src="#" alt="" />

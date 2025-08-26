@@ -1,47 +1,44 @@
 console.log("Welcome!!!");
 
-
+//Inital data with predefined cards with image and description
 const cards = [
   { image: "./images/pic1.gif", description: "pic1" },
   { image: "./images/pic2.png", description: "pic2" },
   { image: "./images/pic3.gif", description: "pic3" },
 ];
 
-// 2. Selectores principales
+// Principal selectors
 const travelerProfileDetails = document.querySelector(".traveler-profile__details");
 const travelerProfileName = travelerProfileDetails.querySelector(".traveler-profile__name");
 const travelerProfileBio = travelerProfileDetails.querySelector(".traveler-profile__bio");
 const travelerProfileEditBtn = document.querySelector(".traveler-profile__edit-btn");
 const travelerProfileAddPlaceBtn = document.querySelector(".traveler-profile__add-place-btn");
 const placesGalleryList = document.querySelector(".places-gallery__list");
-
 const modalProfile = document.querySelector("#modal-edit-profile");
 const modalNewPlace = document.querySelector("#modal-new-place");
 const modalImageView = document.querySelector("#modal-image-view");
-
+const modalInputs = Array.from(document.querySelectorAll(".modal__input"));
+const modalForms = Array.from(document.querySelectorAll(".modal__form"));
 const modalCloseBtns = Array.from(
   document.querySelectorAll(".modal__close-btn")
 );
 
-const modalInputs = Array.from(document.querySelectorAll(".modal__input"));
-const modalForms = Array.from(document.querySelectorAll(".modal__form"));
-
-// 3. Elementos del formulario “Editar perfil”
+// Form elements to edit the profile
 const formEditProfile = document.querySelector("#form-edit-profile");
 const profileNameInput = document.querySelector("#traveler-name");
 const profileBioInput = document.querySelector("#traveler-bio");
 
-// 4. Elementos del formulario “Nuevo lugar”
+// Form elements to add a new card
 const formNewPlace = document.querySelector("#form-new-place");
 const placeTitleInput = document.querySelector("#place-title");
 const placeImageUrlInput = document.querySelector("#place-image-url");
 
-// 5. Función para abrir/cerrar un modal
+// Function to close and open the modal
 function toggleModal(modal) {
   modal.classList.toggle("modal_is-opened");
 }
 
-// 6. Cerrar todos los modales con sus botones “X”
+// Function to close all the modals with a "X" symbol
 modalCloseBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     const modal = btn.closest(".modal");
@@ -49,14 +46,14 @@ modalCloseBtns.forEach(btn => {
   });
 });
 
-// 7. Abrir modal “Editar perfil” y precargar valores
+// To open modal for edit form and shows the initial information
 travelerProfileEditBtn.addEventListener("click", () => {
   profileNameInput.value = travelerProfileName.textContent;
   profileBioInput.value = travelerProfileBio.textContent;
   toggleModal(modalProfile);
 });
 
-// 8. Guardar cambios de perfil
+// Submit and saves changes
 formEditProfile.addEventListener("submit", evt => {
   evt.preventDefault();
   travelerProfileName.textContent = profileNameInput.value;
@@ -64,13 +61,13 @@ formEditProfile.addEventListener("submit", evt => {
   toggleModal(modalProfile);
 });
 
-// 9. Abrir modal “Nuevo lugar” y resetear formulario
+// Opens the New Place modal to clear inputs, reset errors and then displays the modal
 travelerProfileAddPlaceBtn.addEventListener("click", () => {
   formNewPlace.reset();
   toggleModal(modalNewPlace);
 });
 
-// 10. Crear y agregar nueva card
+// Create and add a card element to add to the gallery and close the modal
 formNewPlace.addEventListener("submit", evt => {
   evt.preventDefault();
   const newCard = {
@@ -81,7 +78,7 @@ formNewPlace.addEventListener("submit", evt => {
   toggleModal(modalNewPlace);
 });
 
-// 11. Función para renderizar cada tarjeta
+// Makes a card form a template with like button, delete button, and view-image event
 function createCard(card) {
   const templatePlaceCard = document.querySelector("#template-place-card").content.cloneNode(true);
   const placeCardImage = templatePlaceCard.querySelector(".place-card__image");
@@ -89,22 +86,22 @@ function createCard(card) {
   const placeCardDeleteButton = templatePlaceCard.querySelector(".place-card__delete-button");
   const placeCardLikeButton = templatePlaceCard.querySelector(".place-card__like-button");
 
-  // poblar datos
+  // set image and title
   placeCardImage.src = card.image;
   placeCardImage.alt = card.description;
   placeCardTitle.textContent = card.description;
 
-  // eliminar tarjeta
+  // delete button
   placeCardDeleteButton.addEventListener("click", evt => {
     evt.target.closest(".place-card").remove();
   });
 
-  // like/unlike
+  // like button
   placeCardLikeButton.addEventListener("click", () => {
     placeCardLikeButton.classList.toggle("place-card__like-button_is-active");
   });
 
-  // ver imagen en modal reducido
+  // shows image on a reduce modal
   placeCardImage.addEventListener("click", () => {
     modalImageView.classList.add("modal_is-opened");
     const modalImage = modalImageView.querySelector(".modal__image");
@@ -118,10 +115,10 @@ function createCard(card) {
   placesGalleryList.appendChild(templatePlaceCard);
 }
 
-// 12. Render inicial de las cards
+// Inserts all the predefined cards into the gallery
 cards.forEach(createCard);
 
-// 13. Validación en tiempo real de formularios
+// Realtime form validation
 modalForms.forEach(modalForm => {
   modalInputs.forEach(input => {
     input.addEventListener("input", () => {
