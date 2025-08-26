@@ -67,15 +67,25 @@ travelerProfileAddPlaceBtn.addEventListener("click", () => {
   toggleModal(modalNewPlace);
 });
 
-// Create and add a card element to add to the gallery and close the modal
+// Create and add a card element to add to the gallery and close the modal, also, prevents make a new card without values
 formNewPlace.addEventListener("submit", evt => {
   evt.preventDefault();
-  const newCard = {
-    image: placeImageUrlInput.value,
-    description: placeTitleInput.value
-  };
+
+  const title = placeTitleInput.value.trim();
+  const image = placeImageUrlInput.value.trim();
+  if (!title || !image) {
+    const titleError = document.querySelector("#place-title-error");
+    const imageError = document.querySelector("#place-image-url-error");
+
+    if (titleError) titleError.textContent = "Falta título";
+    if (imageError) imageError.textContent = "Falta URL de imagen";
+    return;
+  }
+
+  const newCard = { image, description: title };
   createCard(newCard);
   toggleModal(modalNewPlace);
+  formNewPlace.reset();
 });
 
 // Makes a card form a template with like button, delete button, and view-image event
